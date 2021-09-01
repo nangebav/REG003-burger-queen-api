@@ -9,7 +9,6 @@ module.exports = {
       const product = new Product();
       product.name = req.body.name;
       product.price = req.body.price;
-
       if (!req.body.name || !req.body.price) {
         return next(400);
       }

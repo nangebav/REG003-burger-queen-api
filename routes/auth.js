@@ -28,7 +28,6 @@ module.exports = (app, nextMain) => {
     }
     const user = await User.findOne({ email });
     if (!user) return next(404); // no encontrado
-
     const passwordMatch = bcrypt.compareSync(password, user.password);
     if (!passwordMatch) return next(401);// no esta autorizado
 

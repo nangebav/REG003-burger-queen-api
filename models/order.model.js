@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const { Schema } = require('mongoose');
 
 const orderSchema = new Schema(
@@ -8,7 +9,7 @@ const orderSchema = new Schema(
     },
     client: {
       type: String,
-      required: false,
+      // required: false,
     },
     products: [
       {
@@ -27,20 +28,20 @@ const orderSchema = new Schema(
       type: String,
       enum: ['pending', 'canceled', 'delivering', 'delivered', 'preparing'],
       default: 'pending',
-      required: false,
+      // required: false,
     },
     dateEntry: {
       type: Date,
       default: Date.now(),
-      required: false,
+      // required: false,
     },
     dateProcessed: {
       type: Date,
-      require: false,
+      // required: false,
     },
 
   },
   { versionKey: false },
 );
-
+orderSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Order', orderSchema);
