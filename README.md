@@ -42,11 +42,12 @@ aplicación completa, de principio a fin.
 
 Se ejecuto todos los tests _end-to-end_ con el comando `npm run test:e2e`, logrando pasar el 100% de las pruebas.
 
-![test e2e users](https://user-images.githubusercontent.com/74318016/131880478-edc3c840-00cf-4b0b-8f94-9c1bcd8916a8.PNG)
+![test e2e products and auth](https://user-images.githubusercontent.com/77282012/131894491-69ba5c48-50b9-4df6-bda1-2431f6a23152.PNG)
 
-![test e2e orders](https://user-images.githubusercontent.com/74318016/131880762-8a232d4f-2374-4823-8113-d1a2816ee481.PNG)
+![test e2e users](https://user-images.githubusercontent.com/77282012/131894492-25ff0a74-923b-4fe3-9f36-cd1c01385dff.PNG)
 
-![test e2e products and auth](https://user-images.githubusercontent.com/74318016/131880814-de84ca3c-96fa-4440-9c7a-e0204fe37f14.PNG)
+![test e2e orders](https://user-images.githubusercontent.com/77282012/131894490-ee15825f-7b8e-4fe6-90c7-a1a8112869da.PNG)
+
 
 
 ## 4. Criterios de aceptación mínimos del proyecto
