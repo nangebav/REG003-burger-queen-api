@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-underscore-dangle */
 const kill = require('tree-kill');
 
 module.exports = () => new Promise((resolve) => {

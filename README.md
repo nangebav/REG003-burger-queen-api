@@ -6,13 +6,11 @@
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
 * [4. Consideraciones generales](#4-consideraciones-generales)
-* [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptaci%C3%B3n-m%C3%ADnimos-del-proyecto)
+* [4. Criterios de aceptación mínimos del proyecto](#4-criterios-de-aceptaci%C3%B3n-m%C3%ADnimos-del-proyecto)
 * [6. Pistas, tips y lecturas complementarias](#6-pistas-tips-y-lecturas-complementarias)
 * [7 HTTP API Checklist](#7-http-api-checklist)
 
 ## 1. Preámbulo
-
-![Node.js logo](https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg)
 
 Un pequeño restaurante de hamburguesas, que está creciendo, necesita un
 sistema a través del cual puedan tomar pedidos usando una _tablet_, y enviarlos
@@ -24,325 +22,401 @@ interfaz, que otro equipo de desarrolladoras está trabajando simultáneamente.
 
 ## 2. Resumen del proyecto
 
-Con una API en este caso nos referimos a un _servidor web_, que es
-básicamente un programa que _escucha_ en un puerto de red, a través del cual
-podemos enviarle _consultas_ (_request_) y obtener _respuestas_ (_response_)
-usando el protocolo HTTP (o HTTPS).
-
-Un servidor web debe _manejar_ consultas entrantes y producir respuestas a esas
-consultas que serán enviadas de vuelta al _cliente_. Cuando hablamos de
-_aplicaciones de servidor_, esto implica una arquitectura de _cliente/servidor_,
-donde el cliente es un programa que hace consultas a través de una red (por
-ejemplo el navegador, cURL, ...), y el _servidor_ es el programa que recibe
-estas consultas y las responde.
-
-[Node.js](https://nodejs.org/) nos permite crear servidores web súper eficientes
-de manera relativamente simple y todo esto usando JavaScript!
-
-En este proyecto partimos de un _boilerplate_ que ya contiene una serie de
-_endpoints_ (puntos de conexión o URLs) y nos piden completar la aplicación.
-Esto implica que tendremos que partir por leer la implementación existente, y
-familiarizarnos con el _stack_ elegido ([Node.js](https://nodejs.org/) y
-[Express](https://expressjs.com/)) y complementarlo con un motor de bases de
-datos, el cual tu deberás elegir entre [MongoDB](https://www.mongodb.com/),
-[PostgreSQL](https://www.postgresql.org/) y [MySQL](https://www.mysql.com/).
+En este proyecto creamos una API a través de la cual podemos enviarle _consultas_ (_request_) y obtener _respuestas_ (_response_) usando el protocolo HTTP (o HTTPS).
 
 La clienta nos ha dado un [link a la documentación](https://laboratoria.github.io/burger-queen-api/)
-que especifica el comportamiento esperado de la API que expondremos por
-HTTP. Ahí puedes encontrar todos los detalles de qué _endpoints_ debe
-implementar la aplicación, qué parámetros esperan, qué deben responder, etc.
+que especifica el comportamiento esperado de la API que expondremos por HTTP.
+En este proyecto se construyo un servidor web que debe mostrar JSON sobre HTTP, y desplegarlo en un servidor en la nube.
 
-El objetivo principal de aprendizaje es adquirir experiencia con **Node.js**
-como herramienta para desarrollar _aplicaciones de servidor_, junto con una
-serie de herramientas comunes usadas en este tipo de contexto (Express como
-framework, MongoDB, PostgreSQL o MySQL como base datos, contenedores de docker,
-etc).
+Para este proyecto se hizo uso de **Node.js** como herramienta para desarrollar _aplicaciones de servidor_, junto con una serie de herramientas comunes usadas en este tipo de contexto (Express como framework, MongoDB como base datos, contenedores de docker,etc).
 
-En este proyecto tendrás que construir un servidor web que debe _servir_ `JSON`
-sobre `HTTP`, y desplegarlo en un servidor en la nube.
+## 3. Consideraciones generales
 
-Para completar el proyecto tendrás que familiarizarte con conceptos como
-**rutas** (_routes_), **URLs**, **HTTP** y **REST** (verbs, request, response,
-headers, body, status codes...), **JSON**, **JWT** (_JSON Web Tokens_),
-**conexión con una base datos** (`MongoDB`, `PostgreSQL`, o `MySQL`),
-**variables de entorno**, **deployment**, **contenedores de `docker`**...
-
-## 3. Objetivos de aprendizaje
-
-Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en tu proyecto. Piensa en eso al decidir tu estrategia de trabajo.
-
-### Node.js
-
-- [ ] **Instalar y usar módulos con npm**
-
-  <details><summary>Links</summary><p>
-
-  * [Sitio oficial de npm (en inglés)](https://www.npmjs.com/)
-</p></details>
-
-- [ ] **Configuración de package.json**
-
-  <details><summary>Links</summary><p>
-
-  * [package.json - Documentación oficial (en inglés)](https://docs.npmjs.com/files/package.json)
-</p></details>
-
-- [ ] **Configuración de npm-scripts**
-
-  <details><summary>Links</summary><p>
-
-  * [scripts - Documentación oficial (en inglés)](https://docs.npmjs.com/misc/scripts)
-</p></details>
-
-### JavaScript
-
-- [ ] **Pruebas unitarias (unit tests)**
-
-  <details><summary>Links</summary><p>
-
-  * [Empezando con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/getting-started)
-</p></details>
-
-- [ ] **Pruebas asíncronas**
-
-  <details><summary>Links</summary><p>
-
-  * [Tests de código asincrónico con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/asynchronous)
-</p></details>
-
-- [ ] **Uso de mocks y espías**
-
-  <details><summary>Links</summary><p>
-
-  * [Manual Mocks con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/manual-mocks)
-</p></details>
-
-- [ ] **Pruebas de integración (end-to-end)**
-
-- [ ] **Módulos de ECMAScript (ES Modules)**
-
-  <details><summary>Links</summary><p>
-
-  * [import - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/import)
-  * [export - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/export)
-</p></details>
-
-- [ ] **Módulos de CommonJS**
-
-  <details><summary>Links</summary><p>
-
-  * [Modules: CommonJS modules - Node.js Docs](https://nodejs.org/docs/latest/api/modules.html)
-</p></details>
-
-- [ ] **Uso de linter (ESLINT)**
-
-- [ ] **Uso de identificadores descriptivos (Nomenclatura y Semántica)**
-
-### Control de Versiones (Git y GitHub)
-
-- [ ] **Git: Instalación y configuración**
-
-- [ ] **Git: Control de versiones con git (init, clone, add, commit, status, push, pull, remote)**
-
-- [ ] **Git: Integración de cambios entre ramas (branch, checkout, fetch, merge, reset, rebase, tag)**
-
-- [ ] **GitHub: Creación de cuenta y repos, configuración de llaves SSH**
-
-- [ ] **GitHub: Despliegue con GitHub Pages**
-
-  <details><summary>Links</summary><p>
-
-  * [Sitio oficial de GitHub Pages](https://pages.github.com/)
-</p></details>
-
-- [ ] **GitHub: Colaboración en Github (branches | forks | pull requests | code review | tags)**
-
-- [ ] **GitHub: Organización en Github (projects | issues | labels | milestones | releases)**
-
-### Express.js
-
-- [ ] **Manejo de rutas**
-
-- [ ] **Uso y creación de middleware**
-
-### HTTP
-
-- [ ] **Consulta o petición (request) y respuesta (response).**
-
-  <details><summary>Links</summary><p>
-
-  * [Generalidades del protocolo HTTP - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Overview)
-  * [Mensajes HTTP - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Messages)
-</p></details>
-
-- [ ] **Cabeceras (headers)**
-
-  <details><summary>Links</summary><p>
-
-  * [HTTP headers - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Headers)
-</p></details>
-
-- [ ] **Cuerpo (body)**
-
-  <details><summary>Links</summary><p>
-
-  * [Cuerpo de Mensajes HTTP - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Messages#cuerpo)
-</p></details>
-
-- [ ] **Verbos HTTP**
-
-  <details><summary>Links</summary><p>
-
-  * [Métodos de petición HTTP - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Methods)
-</p></details>
-
-- [ ] **Codigos de status de HTTP**
-
-  <details><summary>Links</summary><p>
-
-  * [Códigos de estado de respuesta HTTP - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Status)
-  * [The Complete Guide to Status Codes for Meaningful ReST APIs - dev.to](https://dev.to/khaosdoctor/the-complete-guide-to-status-codes-for-meaningful-rest-apis-1-5c5)
-</p></details>
-
-- [ ] **Encodings y JSON**
-
-  <details><summary>Links</summary><p>
-
-  * [Introducción a JSON - Documentación oficial](https://www.json.org/json-es.html)
-</p></details>
-
-- [ ] **CORS (Cross-Origin Resource Sharing)**
-
-  <details><summary>Links</summary><p>
-
-  * [Control de acceso HTTP (CORS) - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/CORS)
-</p></details>
-
-### Autenticación
-
-- [ ] **JWT (JSON Web Token)**
-
-- [ ] **Almacenamiento y acceso de contraseñas**
-
-### WebOps
-
-- [ ] **Variables de entorno**
-
-- [ ] **Contenedores (Docker)**
-
-- [ ] **Docker compose**
-
-- [ ] **cloud-functions**
-
-### Bases de datos (a elegir entre MongoDB, PostgreSQL o MySQL)
-
-- [ ] **Instalación**
-
-- [ ] **Conexión**
-
-- [ ] **Queries y comandos (creación, lectura, actualización, eliminación)**
-
-## 4. Consideraciones generales
-
-Este proyecto se realizará en duos y deberá integrarse con el proyecto
-[Burger Queen API client](../04-burger-queen-api-client)
-que desarrolle simultáneamente el equipo de Frontend developers de tu squad.
-
-La lógica del proyecto debe estar implementada completamente en JavaScript.
-En este proyecto está permitido usar librerías o frameworks, asi como
-extensiones al lenguaje con `babel` (caso en el cual deberás incluir un
-comando `npm run build`).
-
-Los tests deben cubrir un mínimo del 90% de _statements_, _functions_,
-_lines_ y _branches_. Si bien el boilerplate no incluye la configuración para
-pruebas unitarias, estas son obligatorias.
+Este proyecto se integro con el proyecto front-end [Burger Queen API client](../04-burger-queen-api-client), vasado en una aplicacion destinada a restaurantes.
 
 Otro requerimiento del equipo de QA de nuestra clienta es realizar
 **pruebas _end-to-end_**, que usaremos para verificar el comportamiento desde el
 punto de vista de HTTP, desde afuera del servidor. Estos tests, a diferencia de
 las pruebas unitarias, no prueban cada pieza por separado sino que prueban la
-aplicación completa, de principio a fin. Estas pruebas, al no hacer uso directo
-del código fuente de la aplicación, pueden ejecutarse directamente sobre una URL
-remota, ya que la interfaz sometida a pruebas es HTTP.
+aplicación completa, de principio a fin.
 
-El _boilerplate_ ya contiene el setup y configuración
-necesaria para ejecutar todos los tests _end-to-end_ con el comando `npm run test:e2e`.
+Se ejecuto todos los tests _end-to-end_ con el comando `npm run test:e2e`, logrando pasar el 100% de las pruebas.
 
-```sh
-# Corre pruebas e2e sobre instancia local. Esto levanta la aplicación con npm
-# start y corre los tests contra la URL de esta instancia (por defecto
-# http://127.0.0.1:8080).
-npm run test:e2e
+![test e2e users](https://user-images.githubusercontent.com/74318016/131880478-edc3c840-00cf-4b0b-8f94-9c1bcd8916a8.PNG)
 
-# Corre pruebas e2e sobre URL remota
-REMOTE_URL=<TODO: poner URL> npm run test:e2e
-```
+![test e2e orders](https://user-images.githubusercontent.com/74318016/131880762-8a232d4f-2374-4823-8113-d1a2816ee481.PNG)
 
-Las pruebas _end-to-end_ ya están completas en el _boilerplate_, así que puedes
-usarlas como guía de implementación y checklist de completitud.
+![test e2e products and auth](https://user-images.githubusercontent.com/74318016/131880814-de84ca3c-96fa-4440-9c7a-e0204fe37f14.PNG)
 
-## 5. Criterios de aceptación mínimos del proyecto
 
-### 5.1 API
+## 4. Criterios de aceptación mínimos del proyecto
+
+### 4.1 API
 
 Según lo establecido por la [documentación](https://laboratoria.github.io/burger-queen-api/)
 entregada por nuestra clienta, la API debe exponer los siguientes endpoints:
 
-#### 5.1.1 `/`
+#### 4.1.1 `/`
 
 * `GET /`
 
-#### 5.1.2 `/auth`
+      Request:
+      https://burguer-api-2021.herokuapp.com/
+
+      Reponse:
+      {
+          "name": "burger-queen-api",
+          "version": "1.0.0"
+      }
+
+#### 4.1.2 `/auth`
 
 * `POST /auth`
 
-#### 5.1.3 `/users`
+      Request:
+      https://burguer-api-2021.herokuapp.com/auth
+
+      Body:
+      { 
+        "email": "admin@localhost.com",
+        "password": "changeme"
+      }   
+
+      Response:
+      {
+        "token": "eyJhbGciOiJIUzI1NiIsInR4cCI6IkpXVCJ9.eyJ1aWQiOiI2MTJmYTlmMDI0ZjA3ZTAwMTZmM2Q1NTAiLCJlbWFpbCI6ImFkbWludHdvQGxvY2FsaG9zdCIsInJvbGVzIjp7ImFkbWluIjp0cnVlfSwiaWF0IjoxNjMwNjAwMzk3LCJleHAiOjE2MzE4MDk4OTd9.46-rnfWS4U6qy4xhLPyuHqKkBdhZjEEpOZgVYwuJ8xM"
+      }
+
+
+#### 4.1.3 `/users`
 
 * `GET /users`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/users
+
+      Response:
+      {
+        "roles": {
+        "admin": true
+        },
+        "_id": "612fa7f3ab04d34e2446cc18",
+        "email": "admin@localhost",
+        "password": "$2b$10$6JwhYuhjGZcKK.ssOgq08.6E6NN8XLaECm3SqKQU0.bOwGRKlXWEy"
+      },
+
 * `GET /users/:uid`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/users/6130ec0a83944d00169b0d9e
+
+      Response:
+      {
+        "roles": {
+        "admin": false
+        },
+        "_id": "6130ec0a83944d00169b0d9e",
+        "email": "nangebav@gmail.com",
+        "password": "$2b$10$XtTFV6d6orUs/f2MFfUwYuK./zb399B3h1epxwYrsI3ZmTkJzCDQG"
+      }
+
 * `POST /users`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/users
+
+      Body:
+      {
+        "roles": {
+        "admin": true
+        },
+        "_id": "612fa7f3ab04d34e2446cc18",
+        "email": "adminTwo@localhost",
+        "password": "holis"
+      }
+
+      Response:
+      {
+        "_id": "6130ffe34b1e490016af212e",
+        "email": "adminTwo@localhost",
+        "roles": {
+        "admin": true
+        }
+      }
+
 * `PUT /users/:uid`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/users/6130ffe34b1e490016af212e
+
+      Body: 
+      {
+        "roles": {
+        "admin": true
+      },
+        "email": "adminTwo@localhost",
+        "password": "hola"
+      }
+          
+      Response:
+      {
+        "user": {
+          "roles": {
+          "admin": true
+          },
+          "_id": "6130ffe34b1e490016af212e",
+          "email": "adminTwo@localhost",
+          "password": "$2b$10$QG.OV2dExBVeQ6/Nw84Gi..U4zNoqbyxDFWnBYLdCm1PUACPtkxS6"
+        }
+     }
+
 * `DELETE /users/:uid`
 
-#### 5.1.4 `/products`
+      Request:
+      https://burguer-api-2021.herokuapp.com/users/6130ffe34b1e490016af212e
+
+      Response: 
+      {
+        "message": "se eliminó el usuario"
+      }
+
+#### 4.1.4 `/products`
 
 * `GET /products`
+
+      Request: 
+      https://burguer-api-2021.herokuapp.com/products
+
+      Response: 
+      [
+        {
+          "image": "https://therockstore.com.ar/wp-content/uploads/2021/06/noImg-24.png",
+          "type": "side dishes",
+          "dateEntry": "2021-09-02T14:01:44.007Z",
+          "_id": "6130d9c061a98e0016e6c7b1",
+          "name": "quesadillas",
+          "price": 10
+        },
+        {
+          "image": "https://therockstore.com.ar/wp-content/uploads/2021/06/noImg-24.png",
+          "type": "burger",
+          "dateEntry": "2021-09-02T14:01:44.007Z",
+          "_id": "6130da1461a98e0016e6cf01",
+          "name": "Palitos de queso",
+          "price": 4
+        } 
+      ]
+
 * `GET /products/:productid`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/products/6130da7361a98e0016e6d77a
+
+      Response: 
+      {
+        "image": "https://therockstore.com.ar/wp-content/uploads/2021/06/noImg-24.png",
+        "type": "sandwich",
+        "dateEntry": "2021-09-02T14:01:44.007Z",
+        "_id": "6130da7361a98e0016e6d77a",
+        "name": "tacos",
+        "price": 12
+      }
+
 * `POST /products`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/products
+
+      Body:
+      { 
+        "name": "haburguesa con pollo",
+        "price": 10
+      }
+
+      Response:
+      { 
+        "name": "haburguesa con pollo",
+        "price": 10
+      }
+
 * `PUT /products/:productid`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/products/6131044e4b1e490016af336b
+
+      body: 
+      { 
+        "name": "haburguesa de pollo",
+        "price": 10
+      }
+
+      Response: 
+      {
+        "image": "https://therockstore.com.ar/wp-content/uploads/2021/06/noImg-24.png",
+        "type": "burger",
+        "dateEntry": "2021-09-02T14:43:08.494Z",
+        "_id": "6131044e4b1e490016af336b",
+        "name": "haburguesa de pollo",
+        "price": 10
+      }
+
 * `DELETE /products/:productid`
 
-#### 5.1.5 `/orders`
+      Request:
+      https://burguer-api-2021.herokuapp.com/products/6131044e4b1e490016af336b
+
+      Response:
+      {
+        "message": "se eliminó el producto"
+      }
+
+#### 4.1.5 `/orders`
 
 * `GET /orders`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/orders
+
+      Response:
+      [
+        {
+          "status": "delivered",
+          "dateEntry": "2021-09-02T14:43:08.499Z",
+          "_id": "6130f2ec4b1e490016af0c41",
+          "products": [
+              {
+                "qty": 1,
+                "product": "6130da1461a98e0016e6cf01"
+              },
+              {
+                "qty": 2,
+                "product": "6130da1461a98e0016e6cf01"
+              },
+              {
+                "qty": 2,
+                "product": "6130da1461a98e0016e6cf01"
+              }
+          ],
+              "userId": "M11",
+              "client": "nathy",
+              "dateProcessed": "2021-09-02T14:44:46.203Z"
+        },
+        {
+          "status": "pending",
+          "dateEntry": "2021-09-02T14:43:08.499Z",
+          "_id": "613106d44b1e490016af4b27",
+          "products": [
+              {
+                "qty": 1,
+                "product": "6130da1461a98e0016e6cf01"
+              }
+          ],
+          "userId": "M11",
+          "client": "nathy"
+        }
+      ]
+
 * `GET /orders/:orderId`
+
+      Request:
+      https://burguer-api-2021.herokuapp.com/orders/6131072b4b1e490016af40a7
+
+      Response:
+      {
+          "status": "pending",
+          "dateEntry": "2021-09-02T14:43:08.499Z",
+          "_id": "6131072b4b1e490016af40a7",
+          "products": [
+           {
+            "qty": 1,
+            "product": {
+            "image": "https://therockstore.com.ar/wp-content/uploads/2021/06/noImg-24.png",
+            "type": "burger",
+            "dateEntry": "2021-09-02T14:01:44.007Z",
+            "_id": "6130da1461a98e0016e6cf01",
+            "name": "Palitos de queso",
+            "price": 4
+            }
+           }
+          ],
+          "userId": "M11",
+          "client": "nathy"
+      }
+
 * `POST /orders`
+
+      Request: 
+      https://burguer-api-2021.herokuapp.com/orders/
+
+      Body: 
+      {
+        "status": "delivered",
+        "dateEntry": "2021-09-02T14:43:08.499Z",
+        "_id": "6130f2ec4b1e490016af0c41",
+        "products": [
+          {
+          "qty": 1,
+          "product": "6130da1461a98e0016e6cf01"
+          }
+        ],
+        "userId": "M11",
+        "client": "nathy",
+        "dateProcessed": "2021-09-02T14:44:46.203Z"
+      }
+
+      Response: 
+      {
+        "status": "pending",
+        "dateEntry": "2021-09-02T14:43:08.499Z",
+        "_id": "613108044b1e490016af4e8d",
+        "products": [
+          {
+            "qty": 1
+          }
+        ],
+        "userId": "M11",
+        "client": "nathy"
+      }
+
 * `PUT /orders/:orderId`
+
+      Request: 
+      https://burguer-api-2021.herokuapp.com/orders/613106d44b1e490016af4b27
+
+      Body: 
+      {
+        "status": "delivered",
+        "userId": "M11",
+        "client": "nathy"
+      }
+
+      Response:  
+      {
+        "status": "delivered",
+        "dateEntry": "2021-09-02T14:43:08.499Z",
+        "_id": "613106d44b1e490016af4b27",
+        "products": [
+          {
+            "qty": 1,
+            "product": "6130da1461a98e0016e6cf01"
+          }
+        ],
+        "userId": "M11",
+        "client": "nathy",
+        "dateProcessed": "2021-09-02T17:23:33.724Z"
+      }
+
 * `DELETE /orders/:orderId`
 
-### 5.2 CLI
+      Request: 
+      https://burguer-api-2021.herokuapp.com/orders/613106d44b1e490016af4b27
 
-La clienta nos ha solicitado que la aplicación cuente un comando **`npm start`**
-que se debe encargar de ejecutar nuestra aplicación node y que además pueda
-recibir información de configuración, como el puerto en el que escuchar, a qué
-base datos conectarse, etc. Estos datos de configuración serán distintos entre
-diferentes entornos (desarrollo, producción, ...). El _boilerplate_ ya implementa
-[el código necesario](config.js) para leer esta información de los
-[argumentos de invocación](https://nodejs.org/docs/latest/api/process.html#process_process_argv)
-y el
-[entorno](https://nodejs.org/docs/latest/api/process.html#process_process_env).
+      Response: 
+      {
+        "message": "se eliminó la orden"
+      }
 
-#### 5.2.1 Argumentos de línea de comando
-
-Podemos especificar el puerto en el que debe arrancar la aplicación pasando un
-argumento a la hora de invocar nuestro programa:
-
-```sh
-# Arranca la aplicación el puerto 8888 usando npm
-npm start 8888
-```
-
-#### 5.2.2 Variables de entorno
+## 5. Variables de entorno
 
 Nuestra aplicación usa las siguientes variables de entorno:
 
@@ -366,60 +440,12 @@ Nuestra aplicación usa las siguientes variables de entorno:
 * `ADMIN_PASSWORD`: Si hemos especificado un `ADMIN_EMAIL`, debemos pasar
   también una contraseña para el usuario admin. Valor por defecto: `changeme`.
 
-### 5.3 Despliegue (Deployment)
 
-Nuestra clienta nos ha manifestado que su equipo de _devops_ está siempre con
-muchas tareas, por por lo que nos pide como requerimiento que la aplicación esté
-configurada con `docker-compose` para que pueda ser desplegada sin dificultades
-en cualquier entorno.
 
-El _boilerplate_ ya cuenta con una configuración incial de `docker-compose` para
-la aplicación de node, tu tarea será extender esa configuración para incluir la
-configuración de base de datos que hayas elegido. Ten en cuenta que como vas a
-tener dos servidores corriendo sobre una misma configuración, deberás exponer
-los servicios en diferentes puertos.
-
-Para este proyecto te recomendamos usar `docker-compose` localmente (en tu
-computadora) para ejecutar la aplicación junto con la base de datos
-seleccionada. Por otro lado, con respecto al despliegue, no es obligatorio usar
-`docker-compose`, puedes elegir el proveedor (o proveedores) que prefieras junto
-con el mecanismo de despligue y estrategia de alojamiento. Te recomendamos
-explorar las siguientes opciones:
-
-* [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) es
-  probablemente la opción más _sencilla_ (la que requiere menos configuración) y
-  nos permite alojar tanto el servidor web como la base de datos (PostgreSQL) en
-  el mismo sitio con pocos clicks.
-* Si quieres explorar opciones más personalizadas y ver docker del lado del
-  servidor puedes cosiderar proveedores como
-  [AWS (Amazon Web Services)](https://aws.amazon.com/) o
-  [GCP (Google Cloud Platform)](https://cloud.google.com/), ambos tienen algún
-  tipo de _free tier_ así como tanto _instancias_ de _servidores virtuales_
-  (VPS) donde configurar nuestro propio Docker o servicios para desplegar
-  aplicaciones en contenedores (por ejemplo [Compute Engine](https://cloud.google.com/compute/docs/containers)
-  de GCP o [Elastic Container Service](https://aws.amazon.com/ecs/) de AWS).
-* Si quieres trabajar con MongoDB, [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-  es una muy buena opción para alojar nuestra base datos de producción, la cuál
-  podemos usar en conjunción con cualquiera de las opciones mencionadas arriba.
-
-Si tienes dudas sobre las diferentes (y múltiples) opciones de despliegue no
-dudes en consultar con tus pares y tus coaches.
-
-## 6. Pistas, tips y lecturas complementarias
-
-### Primeros pasos
-
-> :information_source: Antes de comenzar a programar te recomendamos leer y
-> seguir con detenimiento la [**guía de _primeros pasos_**](./GETTING-STARTED.md)
-> para ayudarte a elegir tu stack (base de datos, módulo para conectar a la base
-> de datos desde Node.js, etc) y configurar tu entorno de desarrollo.
-
-### Otros recursos
+## 6. Recursos usados
 
 * [Express](https://expressjs.com/)
 * [MongoDB](https://www.mongodb.com/)
-* [PostgreSQL](https://www.postgresql.org/)
-* [MySQL](https://www.mysql.com/)
 * [docker](https://docs.docker.com/)
 * [docker compose](https://docs.docker.com/compose/)
 * [¿Qué es Docker? | Curso de Docker | Platzi Cursos](https://youtu.be/hQgvt-s-AHQ)
@@ -429,36 +455,36 @@ dudes en consultar con tus pares y tus coaches.
 
 ---
 
-## 7 HTTP API Checklist
+## 7. HTTP API Checklist
 
 ### 7.1 `/`
 
-* [ ] `GET /`
+* [x] `GET /`
 
 ### 7.2 `/auth`
 
-* [ ] `POST /auth`
+* [x] `POST /auth`
 
 ### 7.3 `/users`
 
-* [ ] `GET /users`
-* [ ] `GET /users/:uid`
-* [ ] `POST /users`
-* [ ] `PUT /users/:uid`
-* [ ] `DELETE /users/:uid`
+* [x] `GET /users`
+* [x] `GET /users/:uid`
+* [x] `POST /users`
+* [x] `PUT /users/:uid`
+* [x] `DELETE /users/:uid`
 
 ### 7.4 `/products`
 
-* [ ] `GET /products`
-* [ ] `GET /products/:productid`
-* [ ] `POST /products`
-* [ ] `PUT /products/:productid`
-* [ ] `DELETE /products/:productid`
+* [x] `GET /products`
+* [x] `GET /products/:productid`
+* [x] `POST /products`
+* [x] `PUT /products/:productid`
+* [x] `DELETE /products/:productid`
 
-### 7.5 `/orders`
+### 7.4 `/orders`
 
-* [ ] `GET /orders`
-* [ ] `GET /orders/:orderId`
-* [ ] `POST /orders`
-* [ ] `PUT /orders/:orderId`
-* [ ] `DELETE /orders/:orderId`
+* [x] `GET /orders`
+* [x] `GET /orders/:orderId`
+* [x] `POST /orders`
+* [x] `PUT /orders/:orderId`
+* [x] `DELETE /orders/:orderId`
