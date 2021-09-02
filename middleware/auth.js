@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
@@ -40,6 +41,7 @@ module.exports.requireAdmin = (req, resp, next) => (
   // eslint-disable-next-line no-nested-ternary
   (!module.exports.isAuthenticated(req))
     ? next(401)
+    // eslint-disable-next-line max-len
     : (!module.exports.isAdmin(req) && !(req.userInfo._id.toString() === req.params.uid || req.userInfo.email === req.params.uid))
       ? next(403)
       : next()

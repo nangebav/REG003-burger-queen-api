@@ -60,13 +60,13 @@ module.exports = {
         product: product.productId,
       }));
       if (!req.body.products || req.body.products.length === 0) {
-        return resp.send(400);
+        return resp.sendStatus(400);
       }
       if (req.body.client === '') {
-        return resp.send(400);
+        return resp.sendStatus(400);
       }
       if (!req.body.userId) {
-        return resp.send(400);
+        return resp.sendStatus(400);
       }
 
       const newOrderSaved = await newOrder.save();

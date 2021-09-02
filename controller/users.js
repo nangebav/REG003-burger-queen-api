@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const { isAdmin } = require('../middleware/auth');
@@ -23,7 +24,7 @@ module.exports = {
         roles: userStored.roles,
       });
     } catch (err) {
-      return next(404);
+      return next(err);
     }
   },
 
@@ -44,7 +45,7 @@ module.exports = {
       resp.links(links);
       return resp.status(200).send(users.docs);
     } catch (err) {
-      next(404);
+      return next(err);
     }
   },
   // GET/:UID
@@ -58,8 +59,8 @@ module.exports = {
         return next(404);
       }
       return resp.status(200).send(user);
-    } catch (error) {
-      return next(404);
+    } catch (err) {
+      return next(err);
     }
   },
   // DELETE
@@ -68,29 +69,24 @@ module.exports = {
       const { uid } = req.params;
       const userValidateEmail = validateEmail(uid);
       if (!userValidateEmail) {
-        await User.findById(uid, async (err, userId) => {
-          if (err) { return resp.status(500).send({ message: `Error al realizar la petición: ${err}` }); }
-          if (!userId) { return resp.status(404).send({ message: 'Usuario no encontrado' }); }
-          await userId.remove((fail) => {
-            if (fail) {
-              return resp.status(500).send({ message: `Error al realizar la petición: ${err}` });
-            }
-            return resp.status(200).send({ message: 'se eliminó el usuario' });
-          });
-        });
+        const userId = await User.findById(uid);
+        if (!userId) { return resp.status(404).send({ message: 'Usuario no encontrado' }); }
+        const userRemove = await userId.remove();
+        if (!userRemove) {
+          return resp.status(500).send({ message: 'Error al hacer la petición' });
+        }
+        return resp.status(200).send({ message: 'se eliminó el usuario' });
       }
-      await User.findOne({ email: uid }, async (err, userEmail) => {
-        if (err) return resp.status(500).send({ message: `Error al realizar la petición: ${err}` });
-        if (!userEmail) return resp.status(404).send({ message: 'El usuario no existe' });
+      const userEmail = await User.findOne({ email: uid });
 
-        await userEmail.remove((fail) => {
-          if (fail) return resp.status(500).send({ message: `Error al realizar la petición: ${err}` });
+      if (!userEmail) return resp.status(404).send({ message: 'El usuario no existe' });
 
-          return resp.status(200).send({ message: 'Se eliminó el usuario' });
-        });
-      });
-    } catch (error) {
-      return next(404);
+      const UserRemoveEmail = await userEmail.remove();
+      if (!UserRemoveEmail) return resp.status(500).send({ message: 'Error al hacer la petición' });
+
+      return resp.status(200).send({ message: 'Se eliminó el usuario' });
+    } catch (err) {
+      return next(err);
     }
   },
   // PUT
@@ -150,7 +146,7 @@ module.exports = {
         return resp.status(200).send({ user: userUpdate });
       }); */
     } catch (err) {
-      return resp.status(402).send({ message: 'El usuario no exisffte' });
+      return next(err);
     }
   },
 };

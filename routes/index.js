@@ -15,7 +15,7 @@ const register = (app, routes, cb) => {
     return cb();
   }
 
-  routes[0](app, (err) => {
+  return routes[0](app, (err) => {
     if (err) {
       return cb(err);
     }
